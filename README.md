@@ -1,1 +1,1 @@
-# qGAN-portfolio-optimization
+# QOSF Project -- qGAN-portfolio-optimization
