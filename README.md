@@ -1,2 +1,1 @@
-# QOSF Project Draft -- qGAN-portfolio-optimization
-go to QGAN.ipynb
+# Exploring the applications of QGANs to model time series data
