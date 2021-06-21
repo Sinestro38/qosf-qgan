@@ -1,5 +1,7 @@
 # QGAN Hyperparameter Tuning Log
+This log was used to keep track of the different hyperparameter configurations attempted and the results they generated. The parameters are in the following order:
 
+`(input_price_data_length, prediction_vector_length) / num. of qubits / noise bool / num. of layers plus type of ansatz (SEL = pennylane.templates.StronglyEntanglingLayers) / angle embedding procedure / classical discriminator NN type / num. of epochs / batch size`
 - (15+4) / 15 qubits / no noise / 3 SEL ansatz / classical angle embeddings / CNN disc / 5500 epochs / batch size of 1
 
     ![QOSF%20Hyperparameter%20tuning%20c834985d40474d0191b2f72929491a86/Untitled.png](QOSF%20Hyperparameter%20tuning%20c834985d40474d0191b2f72929491a86/Untitled.png)
