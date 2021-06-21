@@ -12,6 +12,6 @@ To document the complete journey venturing into the space of QGANs, I've uploade
 
 `A simple quantum neural network to learn DIS stock prices.ipynb`: A naive attempt to see how a simple parameterized quantum circuit could fit to predict DIS stock prices.
 
-`QGAN.ipynb`: Quantum generative adversarial network used to learn n batches of $DIS data samples. Used for hyperparameter tuning and conclusions.
+`Quantum generative adversarial network.ipynb`: Quantum generative adversarial network used to learn n batches of $DIS data samples. Used for hyperparameter tuning and conclusions.
 
-`QWGAN`: A conditional quantum wasserstein generative adversarial network architecture applied to this task.
+`Conditional QWGAN.ipynb`: A conditional quantum wasserstein generative adversarial network architecture applied to this task.
