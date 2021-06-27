@@ -153,21 +153,19 @@ Okay, so let’s get started.
 
 To measure the discriminator’s cost, we start with the following high-level cost function. Minimizing this entails maximizing the probability of correctly classifying real data while minimizing the probability of mistakenly classifying fake data.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/936/1\*lxkDs43\_P6wALutZouDjMA.png" width="468" height="44" srcSet="https://miro.medium.com/max/552/1\*lxkDs43\_P6wALutZouDjMA.png 276w, https://miro.medium.com/max/936/1\*lxkDs43\_P6wALutZouDjMA.png 468w" sizes="468px" role="presentation"/>
-
-Eq 1
+![Pseudocode cost function](./images/eq1.png)
+_Eq 1_
 
 As a hallmark of GANs, the generator’s cost function will simply be the negation of the discriminator’s cost, where the optimal strategy is to maximize the probability of the discriminator misclassifying fake data.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/900/1\*DRhv8gXlKHhigJrAIn6JCA.png" width="450" height="41" srcSet="https://miro.medium.com/max/552/1\*DRhv8gXlKHhigJrAIn6JCA.png 276w, https://miro.medium.com/max/900/1\*DRhv8gXlKHhigJrAIn6JCA.png 450w" sizes="450px" role="presentation"/>
-
-Eq 2
+![](./images/eq2.png)
+_Eq 2_
 
 We can formalize the two cost functions above into one adversarial optimization problem for the QGAN
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/1268/1\*hBnmXStuxKN69M3UaoztDQ.png" width="634" height="78" srcSet="https://miro.medium.com/max/552/1\*hBnmXStuxKN69M3UaoztDQ.png 276w, https://miro.medium.com/max/1104/1\*hBnmXStuxKN69M3UaoztDQ.png 552w, https://miro.medium.com/max/1268/1\*hBnmXStuxKN69M3UaoztDQ.png 634w" sizes="634px" role="presentation"/>
+![](./images/eq3.png)
 
-Quantum adversarial learning strategy — Eq 3
+_Quantum adversarial learning strategy — Eq 3_
 
 where θ\_D is the vector of parameters we plug into our discriminator ansatz, θ\_G is the vector of parameters we plug into our generator ansatz. Z  is the random noise variable inputted into the generator (we will touch on this in a few minutes).
 
@@ -175,15 +173,15 @@ If you understand eq 1&2, you completely understand eq 3 since it’s simply an 
 
 Note that similar to the classical GANs, both parts depend on θ\_D, but only the second depends on θ\_G. This means that we can simplify the minimization of this problem concerning θ\_G only to contain that term that depends on it. Thus, we simplify Eq 2 to the following
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/602/1\*vx-VOSQ3p4Yg1mS-DfGE0A.png" width="301" height="44" srcSet="https://miro.medium.com/max/552/1\*vx-VOSQ3p4Yg1mS-DfGE0A.png 276w, https://miro.medium.com/max/602/1\*vx-VOSQ3p4Yg1mS-DfGE0A.png 301w" sizes="301px" role="presentation"/>
+![](./images/eq5.png)
 
-The simplified cost function for the generator
+_The simplified cost function for the generator_
 
 Let’s take a step back here and look at the analogue with classical GANs.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/536/1\*LSitB6D4tpjUeTRmw85bOg.png" width="268" height="65" role="presentation"/>
+![](./images/eq6.png)
 
-Classical adversarial learning strategy — log-likelihood functions
+_Classical adversarial learning strategy — log-likelihood functions_
 
 The optimization task is composed of many log-likelihood functions. I won’t go into all of the variables, but the important thing to note here is that optimizing the F\_D neural network entails maximizing the log-likelihood sum of the correct classifications concerning its weights. The inverse applies for F\_G.
 
@@ -191,9 +189,9 @@ However, in the quantum case, we use a linear cost function in the output probab
 
 But the expectation value of what? To refine our cost function, we need to include an operator with which we can take the expectation value of the out D register. It turns out that the Pauli Z operator is a great fit for this since it upholds the orthogonality of |real⟩ and |fake⟩ with the computational basis set {0,1} and eigenvalue set {1,-1}.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/506/1\*Hbxm2swsiRqpPXDQqV\_17g.png" width="253" height="30" role="presentation"/>
+![](./images/eq7.png)
 
-The general form of Z operator
+_The general form of Z operator_
 
 We want to condition the QGAN such that |real⟩ and |fake⟩ are orthogonal to retain the distinguishability of the two for training D, resulting in a better G.
 
@@ -212,47 +210,47 @@ Referring back to the circuit schematic,
 
 ![](./images/general_structure_qgans.png)
 
-The real source R or G(θ\_G) is applied on the initial state |0,_z_⟩ respectively defined on the Out R|G and Bath R|G registers. The discriminator uses the outputted state from the source and an initial state |0,0⟩ defined on the Out D, and Bath D registers to output its’ answer |real⟩ or |fake⟩ in the Out D register. Bath D and Bath R|G are workspaces for the discriminator and generator, respectively.
+_The real source R or G(θ\_G) is applied on the initial state |0,_z_⟩ respectively defined on the Out R|G and Bath R|G registers. The discriminator uses the outputted state from the source and an initial state |0,0⟩ defined on the Out D, and Bath D registers to output its’ answer |real⟩ or |fake⟩ in the Out D register. Bath D and Bath R|G are workspaces for the discriminator and generator, respectively._
 
 we see that the first operation applied is the R or G(θ\_G) (depending on the chosen data source) acting on qubits _n+m_ in the initial state |0,z⟩ (the `Bath R|G` register consists of _m_ qubits).
 
 Assuming that R is a purified unitary operation that acts on both the `Out R|G` and `Bath R|G` registers, these unitary operations corresponding to the sources R and G(θ\_G) acting on the whole quantum computer can be defined as
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/526/1\*Jaha6lT8QPl7\_e4DHwLVtg.png" width="263" height="76" role="presentation"/>
+![](./images/eq8.png)
 
 where we’re applying a scaled identity on the `Out D` and `Bath D` registers, to denote the fact that we operate nothing there.
 
 After the source has been applied, the quantum computer is in the following state.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/702/1\*i-7Mc6h555vqqJQpuYGeaw.png" width="351" height="100" srcSet="https://miro.medium.com/max/552/1\*i-7Mc6h555vqqJQpuYGeaw.png 276w, https://miro.medium.com/max/702/1\*i-7Mc6h555vqqJQpuYGeaw.png 351w" sizes="351px" role="presentation"/>
+![](./images/eq9.png)
 
 We use a density matrix to represent the state to maintain the generality of both pure and mixed states.
 
 Following the circuit schematic, we then apply the discriminator, which we can define using the following unitary operation
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/460/1\*SBzLqpVpyXcIm4kmtexI6w.png" width="230" height="48" role="presentation"/>
+![](./images/eq10.png)
 
 in which _m_ denotes the number of qubits in `Bath R|G`. Now, we can define the state of the quantum computer when U\_D follows U\_R as
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/652/1\*\_nf\_7g0By\_gy4hE6TzvLsA.png" width="326" height="43" srcSet="https://miro.medium.com/max/552/1\*\_nf\_7g0By\_gy4hE6TzvLsA.png 276w, https://miro.medium.com/max/652/1\*\_nf\_7g0By\_gy4hE6TzvLsA.png 326w" sizes="326px" role="presentation"/>
+![](./images/eq11.png)
 
 and the state when U\_D is applied after U\_G as
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/912/1\*ggD7eZXWQN\_sDGHGeAXFtw.png" width="456" height="51" srcSet="https://miro.medium.com/max/552/1\*ggD7eZXWQN\_sDGHGeAXFtw.png 276w, https://miro.medium.com/max/912/1\*ggD7eZXWQN\_sDGHGeAXFtw.png 456w" sizes="456px" role="presentation"/>
+![](./images/eq12.png)
 
 _If you’re wondering why we evolve a density matrix by sandwiching it between the unitary and its transpose, then check this_ [_wiki_](https://en.wikipedia.org/wiki/Density_matrix) _out to understand the difference between evolving a pure state and a density matrix._
 
 Now that we understand the previous terms and definitions, we can redefine the formal cost function from Eq 3 in the quantum formalism as
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/1318/1\*hiRZEr7mnyrSNWSj7Rm\_UQ.png" width="659" height="68" srcSet="https://miro.medium.com/max/552/1\*hiRZEr7mnyrSNWSj7Rm\_UQ.png 276w, https://miro.medium.com/max/1104/1\*hiRZEr7mnyrSNWSj7Rm\_UQ.png 552w, https://miro.medium.com/max/1280/1\*hiRZEr7mnyrSNWSj7Rm\_UQ.png 640w, https://miro.medium.com/max/1318/1\*hiRZEr7mnyrSNWSj7Rm\_UQ.png 659w" sizes="659px" role="presentation"/>
+![](./images/eq13.png)
 
 Eq 4 — **recall that the expectation value of a density matrix with respect to an observable Z is the trace of that Z operator applied to the density matrix**. Read [here](https://en.wikipedia.org/wiki/Density_matrix#Measurement) to learn more
 
 where we’ve represented the probabilities through expectation values. Here, Φ denotes the bias of the source we use since the probability that R or G is used as a source was not explicitly constrained in Eq 3.
 
-For example, if we feed the discriminator more of R than G, D will learn to merely guess R more often instead of learning the real data distribution. Assuming a balanced random choice of R or G (Φ =π/4 → sin²/cos²(π/4) = 1/2), the quantum optimization problem has the final form
+For example, if we feed the discriminator more of R than G, D will learn to merely guess R more often instead of learning the real data distribution. Assuming a balanced random choice of R or G (Φ = π/4 → sin²/cos²(π/4) = 1/2), the quantum optimization problem has the final form
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/812/1\*eS5dAiSKJR54Otm5sJQ9-w.png" width="406" height="60" srcSet="https://miro.medium.com/max/552/1\*eS5dAiSKJR54Otm5sJQ9-w.png 276w, https://miro.medium.com/max/812/1\*eS5dAiSKJR54Otm5sJQ9-w.png 406w" sizes="406px" role="presentation"/>
+![](./images/eq14.png)
 
 The final quantum optimization problem for QGANs
 
@@ -266,9 +264,9 @@ Not confused? Great! You now understand the linear cost function under the hood 
 
 Using the final cost function V(θ\_D, θ\_G), we can use classical gradient descent to arrive at the optimal parameters. Depending on the specific training step _k_, the update rule for the parameters D(θ^k \_D ) or G( θ^k \_G ) is given by
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/540/1\*Z8l3dJcn8OjtxXTobBk4tw.png" width="270" height="83" role="presentation"/>
+![](./images/eq15.png)
 
-Where Χ^k \_D and Χ^k \_G are learning rates.
+Where X^k \_D and Χ^k \_G are learning rates.
 
 For those unfamiliar with gradient descent, think of it as a function that moves our input parameters such that we incur the steepest descent of our cost function.
 
@@ -278,13 +276,13 @@ With sufficient training steps of G, the statistics produced by G become approxi
 
 Mathematically speaking, we can say that the cross-entropy between the real and generated data
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/692/1\*HSiobeyi-YFlZawN3nUIlw.png" width="346" height="42" srcSet="https://miro.medium.com/max/552/1\*HSiobeyi-YFlZawN3nUIlw.png 276w, https://miro.medium.com/max/692/1\*HSiobeyi-YFlZawN3nUIlw.png 346w" sizes="346px" role="presentation"/>
+![](./images/eq16.png)
 
 The cross-entropy between R and G
 
 converges to 0. At this point, the adversarial game has reached Nash equilibrium, and we finish training given that D cannot improve its strategy and all gradients vanish:
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/344/1\*2uwMUmWkpk4xr20KlU3nHg.png" width="172" height="86" role="presentation"/>
+![](./images/eq17.png)
 
 ### The algorithmic flow
 
@@ -314,11 +312,11 @@ _Recall that the DR expectation value is for the quantum circuit where R is fed 
 
 The generator has only to run the DG circuit to arrive at its expectation value to optimize θ\_G. But for the discriminator’s cost function, it needs to evaluate both expectation values, meaning that it will run the DR circuit _and_ the DG circuit.
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/812/1\*eS5dAiSKJR54Otm5sJQ9-w.png" width="406" height="60" srcSet="https://miro.medium.com/max/552/1\*eS5dAiSKJR54Otm5sJQ9-w.png 276w, https://miro.medium.com/max/812/1\*eS5dAiSKJR54Otm5sJQ9-w.png 406w" sizes="406px" role="presentation"/>
+![](./images/eq18.png)
 
 The final quantum optimization problem for QGANs
 
-<img alt="" class="fr er en lv w" src="https://miro.medium.com/max/904/1\*vu-UbjMj5t6qD7pNyRmRyg.png" width="452" height="92" srcSet="https://miro.medium.com/max/552/1\*vu-UbjMj5t6qD7pNyRmRyg.png 276w, https://miro.medium.com/max/904/1\*vu-UbjMj5t6qD7pNyRmRyg.png 452w" sizes="452px" role="presentation"/>
+![](./images/eq19.png)
 
 Simplified individual cost functions for D and G
 
