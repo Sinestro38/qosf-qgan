@@ -10,7 +10,7 @@ To imitate classical GANs, we fed Gaussian noise as input through the last four 
 
 <img src="../images/qnn_result.png" width="750"/>
 
-**Conclusion**: We conclude that given 10 passes through the whole dataset, the quantum neural network was not able to generalize to predict the next iterations of stock price data. Although the reducing training loss signals that the QNN is able to pick up certain patterns, there exists no evidence that it has been able to generalize well. Stated again, this was to be expected given the magnitude of difficulty in predicting stock prices. However, we will evaluate the performance of the QGAN on this task to compare if it generalizes better.
+**Conclusion**: We conclude that given 10 passes through the whole dataset, the quantum neural network was not able to generalize to predict the next iterations of stock price data. Although the slowly reducing training loss signals to us that the QNN is able to pick up certain patterns, there exists no evidence that it has been able to generalize well. Stated again, this was to be expected given the magnitude of difficulty in predicting stock prices. However, we will evaluate the performance of the QGAN on this task to compare if it generalizes better.
 
 ### A simple qnn to evaluate capacity of ansatzes
 Since the QNN isn't able to generalize to all data samples, we then posed the question: "how many datapoints can the parameterized quantum circuit learn?" Which sparked us to investigate the relationship between certain ansatz structures and the learnability of the QNN over _n_ data samples. Our records have been added to `root/hyperparameter_training_log.md`.
