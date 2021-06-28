@@ -11,10 +11,10 @@ Would also like to express my gratitude to my QOSF mentor Yunong Shi from AWS Br
 ## Repo structure
 To document the complete journey venturing into the space of QGANs, I've uploaded all the notebooks along the way which guided my decisions along the way.
 
-- `./QGANs explained.md`: **_Learn what QGANs are all about_** — An accessible introduction to quantum generative adversarial networks.
-- `./QNN Approach/`: **_Preliminary approach_** — Here we evaluate the upper bound of the number of data samples a simple quantum neural network can learn/memorize and a naive attempt to see how a simple parameterized quantum circuit could fit to predict DIS stock prices.
-- `./Conditional QGAN.ipynb/`: **_QGAN approach_** — Quantum generative adversarial network used to learn n batches of $DIS data samples. Used for hyperparameter tuning.
-- `./Conditional QWGAN.ipynb`: **_Final iteration on QGAN approach_** — An advanced quantum generative adversarial network architecture leveraging the Wasserstein metric to determine applicability in learning sequential data. **Includes a thorough explanation of classical WGANs and the Wasserstein metric**!
+- `./QGANs explained.md`: [**Learn what QGANs are all about**](https://github.com/Sinestro38/qosf-qgan/blob/main/QGANs%20Explained.md) — An accessible introduction to quantum generative adversarial networks.
+- `./QNN Approach/`: [**Preliminary approach**](https://github.com/Sinestro38/qosf-qgan/tree/main/QNN%20Approach) — Here we evaluate the upper bound of the number of data samples a simple quantum neural network can learn/memorize and a naive attempt to see how a simple parameterized quantum circuit could fit to predict DIS stock prices.
+- `./Conditional QGAN.ipynb/`: [**QGAN approach**](https://github.com/Sinestro38/qosf-qgan/blob/main/Conditional%20QGAN.ipynb) — Quantum generative adversarial network used to learn n batches of $DIS data samples. Used for hyperparameter tuning.
+- `./Conditional QWGAN.ipynb`: [**Final iteration on QGAN approach**](https://nbviewer.jupyter.org/github/Sinestro38/qosf-qgan/blob/main/Conditional%20QWGAN.ipynb) — An advanced quantum generative adversarial network architecture leveraging the Wasserstein metric to determine applicability in learning sequential data. **Includes a thorough explanation of classical WGANs and the Wasserstein metric**!
 - `./Hyperparameter_tuning_logs.pdf`: A record of various hyperparameter configurations and the resulting effect on loss and accuracy.
 - `./data`: Data fetching and processing into dataset
 
