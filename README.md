@@ -15,7 +15,7 @@ To document the complete journey venturing into the space of QGANs, I've uploade
 - `./QNN Approach/`: [**Preliminary approach**](https://github.com/Sinestro38/qosf-qgan/tree/main/QNN%20Approach) — Here we evaluate the upper bound of the number of data samples a simple quantum neural network can learn/memorize and a naive attempt to see how a simple parameterized quantum circuit could fit to predict DIS stock prices.
 - `./Conditional QGAN.ipynb/`: [**QGAN approach**](https://github.com/Sinestro38/qosf-qgan/blob/main/Conditional%20QGAN.ipynb) — Quantum generative adversarial network used to learn n batches of $DIS data samples. Used for hyperparameter tuning.
 - `./Conditional QWGAN.ipynb`: [**Final iteration on QGAN approach**](https://nbviewer.jupyter.org/github/Sinestro38/qosf-qgan/blob/main/Conditional%20QWGAN.ipynb) — An advanced quantum generative adversarial network architecture leveraging the Wasserstein metric to determine applicability in learning sequential data. **Includes a thorough explanation of classical WGANs and the Wasserstein metric**!
-- `./Hyperparameter_tuning_logs.pdf`: A record of various hyperparameter configurations and the resulting effect on loss and accuracy.
+- `./Hyperparameter_tuning_logs.pdf`: [**Hyperparameter logs**](https://github.com/Sinestro38/qosf-qgan/blob/main/Hyperparameter_tuning_logs.pdf) — A notion pdf with record of various hyperparameter configurations and the resulting effect on loss and accuracy.
 - `./data`: Data fetching and processing into dataset
 
 **_If any of the notebooks fail to load on GitHub, enter the GitHub notebook URL [here](https://nbviewer.jupyter.org/) and you will see it load_**
